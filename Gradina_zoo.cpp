@@ -26,6 +26,8 @@ public:
     
     virtual void afisare()=0;
     virtual float suprafata()=0;
+    
+    ~Pasare(){}
 };
 
 class Zburatoare: public Pasare{
@@ -45,6 +47,8 @@ public:
     float suprafata(){
         return dimensiune*110*batai_pe_minut/100;
     }
+    
+    ~Zburatoare(){}
 };
 
 class Nezburatoare: public Pasare{
@@ -64,6 +68,8 @@ public:
     float suprafata(){
         return dimensiune*30;
     }
+    
+    ~Nezburatoare(){}
 };
 
 bool comp(Pasare *l, Pasare *r){
