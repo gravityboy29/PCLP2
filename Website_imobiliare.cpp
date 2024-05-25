@@ -131,7 +131,25 @@ public:
     }
     
     void test5(std::string p1,int p2,std::string p3,int p4,int p5){
-        
+        for(int i=0;i<vec.size();i++){
+            bool b=true;
+            if(p1!="0" && vec[i]->get_tip()!=p1)
+                b=false;
+            if(p2!=0 && vec[i]->get_pret()<p2)
+                b=false;
+            if(p3!="0" && vec[i]->get_locatie()!=p3)
+                b=false;
+            if(p4!=0 && vec[i]->get_suprafata()<p4)
+                b=false;
+            if(p5!=0){
+                if(vec[i]->get_tip()==p1 && vec[i]->get_nr_etaje()<p5)
+                    b=false;
+                if(vec[i]->get_tip()==p1 && vec[i]->get_dimensiune_terasa()<p5)
+                    b=false;
+            }
+            if(b)
+                vec[i]->afisare();
+        }
     }
 };
 
