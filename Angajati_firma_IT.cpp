@@ -32,8 +32,8 @@ public:
         float salariu_marit=salariu_baza*(100+procent_marire)/100;
         salariu_baza=salariu_marit;
     }
-    ~Angajat(){
-        std::cout<<"Destructor Angajat";
+    virtual ~Angajat(){
+        std::cout<<"Destructor Angajat\n";
     }
 };
 
@@ -51,7 +51,7 @@ public:
     }
     
     ~Analist(){
-        std::cout<<"Destructor Analist";
+        std::cout<<"Destructor Analist\n";
     }
 };
 
@@ -71,7 +71,7 @@ public:
     }
     
     ~Programator(){
-        std::cout<<"Destructor Programator";
+        std::cout<<"Destructor Programator\n";
     }
 };
 
@@ -91,7 +91,9 @@ public:
         return get_salariu_brut()*(100-procent_taxe_salariu+procent_deducere_salariu_it)/100;
     }
     
-    ~LiderEchipaProgramare(){}
+    ~LiderEchipaProgramare(){
+        std::cout<<"Destructor LiderEchipaProgramare\n";
+    }
 };
 
 class FirmaProgramare{
@@ -138,9 +140,20 @@ public:
                 std::cout<<"Salariu de baza nou: "<<vec[i]->get_salariu_baza()<<"\n";            }
     }
     
-    // void promoveaza(std::string ){
-        
-    // }
+    void promoveaza(std::string nume,std::string functie){
+        for(int i=0;i<vec.size();i++){
+            if(vec[i]->get_nume()==nume){
+                float salariu_p=vec[i]->get_salariu_baza();
+                delete vec[i];
+                if(functie=="Analist")
+                    vec[i]=new Analist(nume,salariu_p,functie);
+                else if(functie=="Programator")
+                    vec[i]=new Programator(nume,salariu_p,functie);
+                else if(functie=="LiderEchipaProgramare")
+                    vec[i]=new LiderEchipaProgramare(nume,salariu_p,functie,0);
+            }
+        }
+    }
     
     ~FirmaProgramare(){}
 };
@@ -189,7 +202,11 @@ int main(){
         firma.mareste_salarii(a,p,l);
     }
     else if(test==4){
-        
+        std::string nume,functie;
+        std::getline(std::cin>>std::ws, nume);
+        std::cin>>functie;
+        firma.promoveaza(nume,functie);
+        firma.afiseaza_angajati();
     }
     
     return 0;
